@@ -1,3 +1,98 @@
+# Publications Management API
+
+A robust NestJS-based REST API for managing scientific publications with comprehensive authentication, authorization, and validation features.
+
+## Project Overview
+
+This project implements a full-featured publications management system that allows users to create, read, update, and delete scientific publications with proper access control and data validation.
+
+## Technology Stack
+
+- **Framework**: NestJS with TypeScript
+- **Validation**: class-validator & class-transformer
+- **Authentication**: Custom JWT-like token system
+- **Architecture**: Modular with dependency injection
+- **Logging**: Custom interceptors and middleware
+
+## Key Features
+
+### 🏗️ Modular Architecture
+- **Core Module**: Global providers including exception filters, interceptors, and middleware
+- **Auth Module**: Authentication and authorization guards with role-based access control
+- **Publications Module**: Business logic for managing publications with CRUD operations
+- **App Module**: Main module that orchestrates all application components
+
+### 🔐 Authentication & Authorization
+- **JWT-like Token System**: Base64-encoded tokens containing user ID and roles
+- **Role-Based Access Control**: Three-tier permission system (public, editor, admin)
+- **Guards Implementation**: AuthGuard validates tokens, RolesGuard checks permissions
+- **Flexible Role Decorator**: Easy role assignment to controller methods
+
+### 📊 Publications Management
+- **CRUD Operations**: Full create, read, update, delete functionality
+- **Data Filtering**: Filter publications by author using query parameters
+- **Ownership Control**: Users can only edit their own publications (unless admin)
+- **In-Memory Storage**: Simple data persistence (resets on server restart)
+
+### ✅ Data Validation
+- **DTO Validation**: Comprehensive input validation using class-validator
+- **Global Validation Pipe**: Automatic request validation and transformation
+- **Strict Field Checking**: Whitelist validation with proper error messages
+- **Type Safety**: Automatic type conversion and boundary checking
+
+### 🛡️ Error Handling
+- **Global Exception Filter**: Unified error response format
+- **Comprehensive Logging**: Detailed error logging with context
+- **User-Friendly Messages**: Clear error descriptions for clients
+- **HTTP Status Codes**: Proper status codes for different error scenarios
+
+### 📈 Request Processing Pipeline
+- **Request Logging Middleware**: Logs all incoming HTTP requests (except health checks)
+- **Performance Monitoring**: Response time tracking via interceptors
+- **Response Transformation**: Standardized response format with metadata
+- **Health Check Endpoint**: Service monitoring endpoint excluded from logging
+
+### 🔒 Security Features
+- **Input Sanitization**: Automatic removal of unexpected fields
+- **Role Verification**: Server-side role validation
+- **Ownership Verification**: Prevents unauthorized data modification
+- **Token Validation**: Secure token decoding and validation
+
+## API Capabilities
+
+- **Public Access**: Read operations (GET publications)
+- **Editor Role**: Create new publications
+- **Admin Role**: Full system access including deletion
+- **Ownership-Based Editing**: Users can modify their own content
+- **Filtered Views**: Author-based publication filtering
+
+## Project Structure
+```text
+src/
+├── app.module.ts # Main application module
+├── main.ts # Application entry point
+├── core/ # Global functionality
+│ ├── core.module.ts
+│ ├── http-exception.filter.ts
+│ ├── logging.interceptor.ts
+│ ├── transform.interceptor.ts
+│ └── request-logger.middleware.ts
+├── auth/ # Authentication & authorization
+│ ├── auth.module.ts
+│ ├── auth.guard.ts
+│ ├── roles.guard.ts
+│ ├── roles.decorator.ts
+│ └── auth-user.interface.ts
+└── publications/ # Business logic
+├── publications.module.ts
+├── publications.controller.ts
+├── publications.service.ts
+├── publication.interface.ts
+├── create-publication.dto.ts
+└── update-publication.dto.ts
+```
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
